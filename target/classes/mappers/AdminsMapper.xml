@@ -1,0 +1,10 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ziru.mapper.AdminsMapper">
+
+    <select id="list" resultType="com.ziru.bean.Admins">
+        select * from admins where deleted=0
+    </select>
+
+</mapper>

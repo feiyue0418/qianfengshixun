@@ -1,0 +1,8 @@
+# Swagger配置文件
+swagger:
+  base-package: com.ziru.controller
+  title: 自如后端服务器接口文档
+  contact:
+    name: bruce
+    url: http://www.xxxxx.com
+  version: v5
