@@ -2,15 +2,16 @@ package com.ziru.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.ziru.bean.Admins;
+import com.github.pagehelper.PageHelper;
+
+import com.github.pagehelper.PageInfo;
 import com.ziru.bean.House;
 import com.ziru.common.Result;
-import com.ziru.exception.CustomException;
+
 import com.ziru.service.IHouseService;
 import io.swagger.annotations.*;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -46,6 +47,7 @@ public class HouseController {
     @ApiOperation(value = "新增房源信息", notes = "新增房源信息")
     @PostMapping("add")
     public Result add(@RequestBody House house){
+        house.setDel("0");
         boolean b = houseService.save(house);
         if(b){
             return Result.success();
@@ -84,6 +86,22 @@ public class HouseController {
         }else{
             return Result.error();
         }
+    }
+
+    /*
+    * 分页查询
+    * @return
+    * */
+    @GetMapping("selectPage")
+    public Result selectPage(@RequestParam("pageNum") Integer pageNum,
+                             @RequestParam("pageSize") Integer pageSize,
+                             @RequestParam("title") String title){
+
+        //使用分页插件
+        PageHelper.startPage(pageNum,pageSize);
+        List<House> list = houseService.list(new QueryWrapper<House>().like("title",title).eq("del","0"));
+        PageInfo<House> pageInfo = new PageInfo<>(list);
+        return Result.success(pageInfo);
     }
 
 
