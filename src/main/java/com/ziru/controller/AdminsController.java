@@ -6,6 +6,7 @@ import com.ziru.common.Result;
 import com.ziru.exception.CustomException;
 import com.ziru.service.AdminsService;
 import io.swagger.annotations.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import java.util.List;
         @ApiResponse(code = 403, message = "没有权限操作"),
         @ApiResponse(code = 500, message = "服务器异常")
 })
+@Slf4j
 public class AdminsController {
 
     @Resource
@@ -46,7 +48,7 @@ public class AdminsController {
     @PostMapping("add")
     public Result add(@RequestBody Admins admins){
         //根据用户名查询对象是否存在于数据库中
-        Admins adminDb = adminsService.getOne(new QueryWrapper<Admins>().eq("username", admins.getUsername()).eq("deleted", "0"));
+        Admins adminDb = adminsService.getOne(new QueryWrapper<Admins>().eq("username", admins.getUsername()).eq("del", "0"));
         if(adminDb==null){
             boolean b = adminsService.save(admins);
             if(b){
@@ -83,12 +85,27 @@ public class AdminsController {
     public Result delete(@PathVariable("id") @ApiParam(value = "管理员主键ID")  Integer id){
         Admins admins = new Admins();
         admins.setId(id);
-        admins.setDeleted("1");//删除
+        admins.setDel("1");//删除
         boolean b = adminsService.updateById(admins);
         if(b){
             return Result.success();
         }else{
             return Result.error();
+        }
+    }
+
+    /**
+     * 管理员登录
+     * @return
+     */
+    @PostMapping("login")
+    public Result login(@RequestBody Admins admins){
+        log.info("登录的信息是:"+admins);
+        Admins a = adminsService.getOne(new QueryWrapper<Admins>().eq("username", admins.getUsername()).eq("password",admins.getPassword()));
+        if(a!=null){
+            return Result.success(a);
+        }else{
+            return Result.error("账号或密码错误！");
         }
     }
 

@@ -35,6 +35,10 @@ public class Admins {
     private String password;
 
     @ApiModelProperty("删除状态 1 删除 0未删除")
-    @TableField(value = "DELETED")
-    private String deleted;
+    @TableField(value = "DEL")
+    private String del;
+
+    @ApiModelProperty("角色")
+    @TableField(value = "ROLE")
+    private String role;
 }

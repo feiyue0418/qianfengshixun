@@ -4,7 +4,7 @@
 <mapper namespace="com.ziru.mapper.AdminsMapper">
 
     <select id="list" resultType="com.ziru.bean.Admins">
-        select * from admins where deleted=0
+        select * from admins where del=0
     </select>
 
 </mapper>

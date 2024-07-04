@@ -1,6 +1,7 @@
 package com.ziru.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
@@ -46,5 +47,13 @@ public class House implements Serializable {
 
     @ApiModelProperty(value = "是否删除 1  0 未删除")
     private String del;
+
+    @ApiModelProperty(value = "租赁人ID")
+    @TableField(value = "member_id")
+    private String member_id;
+
+    @ApiModelProperty(value = "房源状态 1 已租赁  0 空闲  2 租赁中")
+    @TableField(value = "status")
+    private String status;
 
 }

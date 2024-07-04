@@ -14,7 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class App {
     public static void main(String[] args) {
         SpringApplication.run(App.class,args);
-        System.out.println("后端服务器启动完毕，端口:8080");
-        System.out.println("Swagger地址:http://localhost:8080/doc.html");
+        System.out.println("后端服务器启动完毕，端口:8081");
+        System.out.println("Swagger地址:http://localhost:8081/doc.html");
     }
 }

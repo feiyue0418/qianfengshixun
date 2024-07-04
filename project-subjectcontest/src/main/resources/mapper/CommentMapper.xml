@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.authority.mapper.CommentMapper">
+
+    <select id="selectTree" resultType="com.example.authority.entity.Comment">
+        select comment.*,user.header_url,user.username userName,u2.username replyUser
+        from comment
+                 left join sys_user user  on comment.user_id = user.id
+                 left join comment c2 on c2.id = comment.parent_id
+                 left join sys_user u2 on c2.user_id = u2.id
+        where comment.relation_id = #{relationId} and comment.module = #{module}
+        order by comment.id desc
+    </select>
+</mapper>

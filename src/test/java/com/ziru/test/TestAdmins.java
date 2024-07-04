@@ -30,7 +30,7 @@ public class TestAdmins {
 
     @Test
     public void testInser(){
-        Admins admins=new Admins(null,"bruce","123456","0");
+        Admins admins=new Admins(null,"bruce","123456","0","TENANT");
         int count = adminsMapper.insert(admins);
         System.out.println(count>0?"新增成功":"新增失败");
     }

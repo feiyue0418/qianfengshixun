@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.authority.mapper.NewsMapper">
+    <select id="findNewListByType" resultType="com.example.authority.entity.News">
+        select * from news
+        order by
+        <if test="sort == 'new' "> id </if>
+        <if test="sort == 'hot' "> count </if>
+        desc limit 8
+    </select>
+
+    <update id="updateCount" parameterType="integer">
+        update news set count = count + 1 where id = #{id}
+    </update>
+</mapper>
